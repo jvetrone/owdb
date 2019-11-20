@@ -11,7 +11,12 @@ public class idDatabase
 {
 	public static void search(Student[] stuList)
 	{
+		int ctf = 0;
 		Scanner query = new Scanner(System.in);
+		String choice = "A";
+		while(ctf != 1)
+		{
+		boolean found = false;
 		int wantID = 0;
 		while(wantID < 700700000 || wantID >700799999)
 		{
@@ -23,8 +28,21 @@ public class idDatabase
 		{
 			int currentID = stuList[i].getID();
 			if(wantID == currentID)
+			{
 				System.out.println(stuList[i].toString());
+				found = true;
+			}
 			i++;
+		}
+		if(found == false)
+			System.out.println("No results.");
+		else System.out.println("Student found!");
+		System.out.println("Would you like to continue? Type N to stop");
+		choice = query.nextLine();
+		choice = query.nextLine();
+		if(choice.equals("N") || choice.equals("n"))
+			ctf = 1;
+		else ctf = 0;
 		}
 	}
 
@@ -59,21 +77,22 @@ public class idDatabase
 				System.out.println("Enter Math Grade: ");
 				math = info.nextDouble();
 			}
-			/*while(deancheck != 1)
+			while(deancheck != 1)
 			{
 				System.out.println("Were you on the dean's list? Y for yes N for no: ");
 				dean = info.nextLine();
-				if(dean == "Y" || dean == "y")
+				dean = info.nextLine();
+				if(dean.equals("Y") || dean.equals("y"))
 				{
 					isDean = true;
 					deancheck = 1;
 				}
-				else if(dean == "N" || dean == "n")
+				else if(dean.equals("N") || dean.equals("n"))
 				{
 					isDean = false;
 					deancheck = 1;
 				}
-			}*/
+			}
 			int i = 0;
 			while(stuList[i] != null)
 			{
@@ -81,18 +100,21 @@ public class idDatabase
 			}
 
 			stuList[i] = new Student(sid, name, gpa, math, isDean, false);
+			writeFile(stuList);
 			System.out.println("Student added. Would you like to continue? Type N to stop");
-			choice = info.nextLine();
 			choice = info.nextLine();
 			if(choice.equals("N") || choice.equals("n"))
 				ctf = 1;
 			else ctf = 0;
-			writeFile(stuList);
 		}
 	}
 	public static void removeStudent(Student[] stuList)
 	{
 		Scanner query = new Scanner(System.in);
+		String choice = "A";
+		int ctf = 0;
+	while(ctf != 1)
+	{
 		int wantID = 0;
 		while(wantID < 700700000 || wantID >700799999)
 		{
@@ -110,6 +132,13 @@ public class idDatabase
 			i++;
 		}
 		writeFile(stuList);
+		System.out.println("Student removed. Would you like to continue? Type N to stop");
+		choice = query.nextLine();
+		choice = query.nextLine();
+		if(choice.equals("N") || choice.equals("n"))
+			ctf = 1;
+		else ctf = 0;
+	}
 	}
 	public static void writeFile(Student[] stuList)
 	{
